@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta pcset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PathFinder 2nd Edition - Character Sheet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" sizes="192x192" href="icon.png">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <nav>
+            <button @click="tab=1" :class="{active:tab == 1}">📋</button>
+            <button @click="tab=2" :class="{active:tab == 2}">🎭</button>
+            <button @click="tab=3" :class="{active:tab == 3}">💀</button>
+            <button @click="tab=4" :class="{active:tab == 4}">💰</button>
+        </nav>
+        <div v-show="tab==1">
+            <h1>
+                {{pc.name}}
+                <span>{{pc.ancestry}}</span>
+                <span>{{pc.class}} Lv{{pc.level}}</span>
+            </h1> 
+            <hr>
+            <div class="flex">
+                <div>
+                    <h2>Ability Scores</h2>
+                    <table class="stats">
+                        <tr><td>{{pc.str}}</td><td>STR</td><td>{{(pc.str-10)*0.5}}</td></tr>
+                        <tr><td>{{pc.dex}}</td><td>DEX</td><td>{{(pc.dex-10)*0.5}}</td></tr>
+                        <tr><td>{{pc.con}}</td><td>CON</td><td>{{(pc.con-10)*0.5}}</td></tr>
+                        <tr><td>{{pc.int}}</td><td>INT</td><td>{{(pc.int-10)*0.5}}</td></tr>
+                        <tr><td>{{pc.wis}}</td><td>WIS</td><td>{{(pc.wis-10)*0.5}}</td></tr>
+                        <tr><td>{{pc.cha}}</td><td>CHA</td><td>{{(pc.cha-10)*0.5}}</td></tr>
+                    </table>
+
+                    <h2>Skills</h2>
+                    <table>
+                        <tr><td>Acrobatics</td><td>{{pc.ac}}</td></tr>
+                        <tr><td>Arcana</td><td>{{pc.fort}}</td></tr>
+                        <tr><td>Athletics</td><td>{{pc.reflex}}</td></tr>
+                        <tr><td>Crafting</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Deception</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Diplomacy</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Intimidation</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Lore</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Lore</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Medicine</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Nature</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Occultism</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Performance</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Religion</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Society</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Stealth</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Survival</td><td>{{pc.will}}</td></tr>
+                        <tr><td>Thievery</td><td>{{pc.will}}</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h2>Hit Points</h2>
+                    <div class="single">{{pc.hp}}<span>/{{pc.hpMax}}</span></div>
+
+                    <h2>Defenses</h2>
+                    <table>
+                        <tr><td>Armor Class</td><td>{{pc.ac}}</td></tr>
+                        <tr><td>Fortitude</td><td>{{pc.fort}}</td></tr>
+                        <tr><td>Reflex</td><td>{{pc.reflex}}</td></tr>
+                        <tr><td>Will</td><td>{{pc.will}}</td></tr>
+                    </table>
+
+                    <h2>Other</h2>
+                    <table>
+                        <tr><td>Perception</td><td>{{pc.perception}}</td></tr>
+                        <tr><td>Class DC</td><td>{{pc.cdc}}</td></tr>
+                        <tr><td>Speed</td><td>{{pc.spd}}</td></tr>
+                    </table>
+                    
+                    <h2>Shield</h2>
+                    <div class="single">{{pc.cdc}}</div>
+                </div>
+            </div>
+
+            <div>
+                <h2>Dying</h2>
+                <div class="single">{{pc.dying}}<span>/{{pc.dyingMax}}</span></div>
+                <h2>Resistances</h2>
+                <div class="single">-</div>
+            </div>
+        </div><!-- tab1 -->
+
+        <div v-show="tab==2">
+            
+        </div>
+        <div v-show="tab==3">
+            
+        </div>
+        <div v-show="tab==4">
+            
+        </div>
+        <div v-show="tab==5">
+            
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
