@@ -1,6 +1,6 @@
 *{ box-sizing: border-box; margin: 0; padding: 0; }
 html{
-    background: radial-gradient(circle at 50% 5%, #84aa9b, #34495e 60%);
+    background: radial-gradient(circle at 50% 85%, #84aa9b, #34495e 90%);
     background-attachment: fixed;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     min-height: 100%;
@@ -37,6 +37,12 @@ nav{
     nav button.active{ background: rgba(0,0,0,0.8); }
 
 
+hr{
+    border: 1px solid white;
+    box-shadow: 0 0 1px black, 0 0 3px black, 0 0 5px black;
+    clear: both;
+    margin: 10px 5px;
+}
 
 .flex{
     display: flex;
@@ -134,11 +140,52 @@ table.stats td:nth-child(2){
 
 
 
+summary{
+    border-radius: 10px;
+    border: none;
+    cursor:pointer;
+    font-size: 20px;
+    font-variant: small-caps;
+    letter-spacing: 0px;
+    margin: 5px;
+    padding: 8px 20px;
+    outline:none;
+    z-index: 5;
+}
+summary>span{
+    float:right;
+}
+summary>a{
+    color: white;
+    float:right;
+    font-size: 14px;
+    opacity: 0.65;
+    padding: 3px 0;
+}
+details>div{
+    background-color: #00000055;
+    border-radius: 0 0 6px 6px;
+    margin: -6px auto 10px;
+    padding: 10px 20px;
+    width: 95%;
+}
 
-
-
-
-
+details.char summary{
+    margin: 10px 5px;
+    padding: 0;
+}
+details.char>div{
+    background-color: transparent;
+    margin: -6px auto 10px;
+    padding: 0;
+    width: 95%;
+}
+details.char td{
+    background-color: transparent;
+    flex: 1;
+    font-size: 10px;
+    padding: 2px;
+}
 
 
 
@@ -200,33 +247,6 @@ details details>*, details details>div{
     background: transparent;
 }
 
-summary{
-    background-color: #00000099;
-    border-radius: 10px;
-    border: none;
-    cursor:pointer;
-    font-size: 20px;
-    font-variant: small-caps;
-    letter-spacing: 0px;
-    margin: 5px;
-    padding: 8px 20px;
-    outline:none;
-    z-index: 5;
-}
-summary>a{
-    color: white;
-    float:right;
-    font-size: 14px;
-    opacity: 0.65;
-    padding: 3px 0;
-}
-details>div{
-    background-color: #00000055;
-    border-radius: 0 0 6px 6px;
-    margin: -6px auto 10px;
-    padding: 10px 20px;
-    width: 95%;
-}
 
 
 /*#region Stats*/
@@ -327,12 +347,6 @@ input{
         padding: 0 20px;
     }
 
-    hr{
-        border: 1px solid white;
-        box-shadow: 0 0 1px black, 0 0 3px black, 0 0 5px black;
-        clear: both;
-        margin: 10px 0;
-    }
 
     .spell h1,.feat h1{
         background-color: #000000cc;

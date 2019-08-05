@@ -18,11 +18,26 @@
             <button @click="tab=4" :class="{active:tab == 4}">💰</button>
         </nav>
         <div v-show="tab==1">
-            <h1>
-                {{pc.name}}
-                <span>{{pc.ancestry}}</span>
-                <span>{{pc.class}} Lv{{pc.level}}</span>
-            </h1> 
+            <details class="char" open>
+                <summary>{{pc.name}}<span>{{pc.class}} ({{pc.level}})</span></summary>
+                <div class="flex">
+                    <table>
+                        <tr><td>Ancestry:</td><td>{{pc.ancestry}}</td></tr>
+                        <tr><td>Background:</td><td>{{pc.background}}</td></tr>
+                        <tr><td>Size:</td><td>{{pc.size}}</td></tr>
+                    </table>
+                    <table>
+                        <tr><td>Alignment:</td><td>{{pc.alignment}}</td></tr>
+                        <tr><td>Deity:</td><td>{{pc.deity}}</td></tr>
+                        <tr><td>XP:</td><td>{{pc.xp}}</td></tr>
+                    </table>
+                </div>
+                <div class="flex">
+                    <table>
+                        <tr><td style="flex:1;">Languages:</td><td style="flex:3;2">{{pc.languages}}</td></tr>
+                    </table>
+                </div>
+            </details>
             <hr>
             <div class="flex">
                 <div>
@@ -82,12 +97,6 @@
                 </div>
             </div>
 
-            <div>
-                <h2>Dying</h2>
-                <div class="single">{{pc.dying}}<span>/{{pc.dyingMax}}</span></div>
-                <h2>Resistances</h2>
-                <div class="single">-</div>
-            </div>
         </div><!-- tab1 -->
 
         <div v-show="tab==2">
