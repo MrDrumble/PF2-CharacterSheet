@@ -14,29 +14,20 @@
         <nav>
             <button @click="tab=1" :class="{active:tab == 1}">📋</button>
             <button @click="tab=2" :class="{active:tab == 2}">🎭</button>
-            <button @click="tab=3" :class="{active:tab == 3}">💀</button>
-            <button @click="tab=4" :class="{active:tab == 4}">💰</button>
+            <button @click="tab=3" :class="{active:tab == 3}">⚔️</button>
+            <button @click="tab=4" :class="{active:tab == 4}">❔</button>
         </nav>
         <div v-show="tab==1">
             <details class="char" open>
                 <summary>{{pc.name}}<span>{{pc.class}} ({{pc.level}})</span></summary>
-                <div class="flex">
-                    <table>
-                        <tr><td>Ancestry:</td><td>{{pc.ancestry}}</td></tr>
-                        <tr><td>Background:</td><td>{{pc.background}}</td></tr>
-                        <tr><td>Size:</td><td>{{pc.size}}</td></tr>
-                    </table>
-                    <table>
-                        <tr><td>Alignment:</td><td>{{pc.alignment}}</td></tr>
-                        <tr><td>Deity:</td><td>{{pc.deity}}</td></tr>
-                        <tr><td>XP:</td><td>{{pc.xp}}</td></tr>
-                    </table>
-                </div>
-                <div class="flex">
-                    <table>
-                        <tr><td style="flex:1;">Languages:</td><td style="flex:3;2">{{pc.languages}}</td></tr>
-                    </table>
-                </div>
+                <table>
+                    <tr><td>{{pc.ancestry}}</td><td>{{pc.alignment}}</td></tr>
+                    <tr><td>{{pc.background}}</td><td>{{pc.deity}}</td></tr>
+                    <tr><td>{{pc.size}}</td><td>{{pc.xp}} XP</td></tr>
+                </table> 
+                <table>
+                    <tr><td>{{pc.languages}}</td></tr>
+                </table>
             </details>
             <hr>
             <div class="flex">
@@ -75,7 +66,7 @@
                 </div>
                 <div>
                     <h2>Hit Points</h2>
-                    <div class="single">{{pc.hp}}<span>/{{pc.hpMax}}</span></div>
+                    <div class="single" @click="showModal=true">{{pc.hp}}<span>/{{pc.hpMax}}</span></div>
 
                     <h2>Defenses</h2>
                     <table>
@@ -110,6 +101,14 @@
         </div>
         <div v-show="tab==5">
             
+        </div>
+        <div class="fader" v-if="showModal" @click="showModal=false">
+            <div class="modal">
+                <label for="dmg">Enter Amount:</label>
+                <input type="number" ref="i_dmg" id="dmg" v-model.number="dmg">
+                <button v-on:click="updateHealth(true)">Damage</button>
+                <button v-on:click="updateHealth(false)">Heal</button>
+            </div>
         </div>
     </div>
     <script src="app.js"></script>

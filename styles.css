@@ -13,7 +13,6 @@ body{
 }
 #app{
     margin: 0 auto;
-    max-width: 1100px;
 }
 nav{
     display: flex;
@@ -31,7 +30,7 @@ nav{
         flex: 1;
         font-size: 18px;
         font-weight: bold;
-        padding-bottom: 4px;
+        padding-bottom: 16px;
     }
     nav button:last-of-type{border-right:1px solid black;}
     nav button.active{ background: rgba(0,0,0,0.8); }
@@ -183,8 +182,9 @@ details.char>div{
 details.char td{
     background-color: transparent;
     flex: 1;
-    font-size: 10px;
+    font-size: 14px;
     padding: 2px;
+    text-align: center;
 }
 
 
@@ -271,6 +271,11 @@ input{
     border-radius: 4px;
 }
 
+.fader{
+    background: #000000a4;
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 90;
+}
 .modal{
     background: rgba(5, 0, 0, 0.95);
     position: absolute; top: 20%; left: 0; right: 0;

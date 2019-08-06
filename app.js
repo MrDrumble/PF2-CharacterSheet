@@ -30,6 +30,7 @@ var app = new Vue({
             spd: 25,
             cdc: 17
         },
+        showModal: false,
         tab: 1
     },
     computed: {
