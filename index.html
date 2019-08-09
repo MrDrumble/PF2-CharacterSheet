@@ -18,20 +18,16 @@
             <button @click="tab=4" :class="{active:tab == 4}">❔</button>
         </nav>
         <div v-show="tab==1">
-            <details class="char" open>
-                <summary>{{pc.name}}<span>{{pc.class}} ({{pc.level}})</span></summary>
-                <table>
-                    <tr><td>{{pc.ancestry}}</td><td>{{pc.alignment}}</td></tr>
-                    <tr><td>{{pc.background}}</td><td>{{pc.deity}}</td></tr>
-                    <tr><td>{{pc.size}}</td><td>{{pc.xp}} XP</td></tr>
-                </table> 
-                <table>
-                    <tr><td>{{pc.languages}}</td></tr>
-                </table>
-            </details>
-            <hr>
             <div class="flex">
                 <div>
+                    <h2 style="font-size: 24px">{{pc.name}}</h2>
+                    <table class="simple">
+                        <tr><td>{{pc.class}}</td><td>Lv. {{pc.level}}</td></tr>
+                        <tr><td>{{pc.ancestry}}</td><td>{{pc.xp}} XP</td></tr>
+                        <tr><td>{{pc.background}}</td><td>{{pc.deity}}</td></tr>
+                        <tr><td>{{pc.size}}</td><td>{{pc.alignment}}</td></tr>
+                        <tr><td colspan="2">{{pc.languages}}</td></tr>
+                    </table>
                     <h2>Ability Scores</h2>
                     <table class="stats">
                         <tr><td>{{pc.str}}</td><td>STR</td><td>{{(pc.str-10)*0.5}}</td></tr>
@@ -42,6 +38,14 @@
                         <tr><td>{{pc.cha}}</td><td>CHA</td><td>{{(pc.cha-10)*0.5}}</td></tr>
                     </table>
 
+                    <h2>Other</h2>
+                    <table>
+                        <tr><td>Perception</td><td>{{pc.perception}}</td></tr>
+                        <tr><td>Class DC</td><td>{{pc.cdc}}</td></tr>
+                        <tr><td>Speed</td><td>{{pc.spd}}</td></tr>
+                    </table>
+                </div>
+                <div>
                     <h2>Skills</h2>
                     <table>
                         <tr><td>Acrobatics</td><td>{{pc.ac}}</td></tr>
@@ -64,33 +68,24 @@
                         <tr><td>Thievery</td><td>{{pc.will}}</td></tr>
                     </table>
                 </div>
-                <div>
-                    <h2>Hit Points</h2>
-                    <div class="single" @click="showModal=true">{{pc.hp}}<span>/{{pc.hpMax}}</span></div>
-
-                    <h2>Defenses</h2>
-                    <table>
-                        <tr><td>Armor Class</td><td>{{pc.ac}}</td></tr>
-                        <tr><td>Fortitude</td><td>{{pc.fort}}</td></tr>
-                        <tr><td>Reflex</td><td>{{pc.reflex}}</td></tr>
-                        <tr><td>Will</td><td>{{pc.will}}</td></tr>
-                    </table>
-
-                    <h2>Other</h2>
-                    <table>
-                        <tr><td>Perception</td><td>{{pc.perception}}</td></tr>
-                        <tr><td>Class DC</td><td>{{pc.cdc}}</td></tr>
-                        <tr><td>Speed</td><td>{{pc.spd}}</td></tr>
-                    </table>
-                    
-                    <h2>Shield</h2>
-                    <div class="single">{{pc.cdc}}</div>
-                </div>
             </div>
 
         </div><!-- tab1 -->
 
         <div v-show="tab==2">
+                <h2>Hit Points</h2>
+                <div class="single" @click="showModal=true">{{pc.hp}}<span>/{{pc.hpMax}}</span></div>
+
+                <h2>Defenses</h2>
+                <table>
+                    <tr><td>Armor Class</td><td>{{pc.ac}}</td></tr>
+                    <tr><td>Fortitude</td><td>{{pc.fort}}</td></tr>
+                    <tr><td>Reflex</td><td>{{pc.reflex}}</td></tr>
+                    <tr><td>Will</td><td>{{pc.will}}</td></tr>
+                </table>
+                
+                <h2>Shield</h2>
+                <div class="single">{{pc.cdc}}</div>
             
         </div>
         <div v-show="tab==3">
