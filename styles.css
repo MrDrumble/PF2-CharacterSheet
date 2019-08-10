@@ -13,6 +13,7 @@ body{
 }
 #app{
     margin: 0 auto;
+    max-width: 800px;
 }
 nav{
     display: flex;
