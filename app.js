@@ -1,16 +1,23 @@
+Vue.directive('focus', {
+    inserted: function (el) {
+        el.focus()
+    }
+})
+
 var app = new Vue({
     el:'#app',
     data: {
         pc:{ 
-            name: 'Lyndis', 
-            ancestry: 'Human',
-            background: 'Nomad',
-            size: 'Medium',
-            alignment: 'Chaotic Good',
-            deity: 'Desna',
+            name: '', 
+            ancestry: '',
+            background: '',
+            class: '', 
+            heritage: '', 
+            size: '',
+            alignment: '',
+            deity: '',
             languages: 'Common',
             xp: 100,
-            class: 'Fighter', 
             level: 1, 
             hp: 18, hpMax: 18,
             dying: 0, dyingMax: 4,
@@ -28,21 +35,32 @@ var app = new Vue({
             reflex: 10, 
             will: 8, 
             spd: 25,
-            cdc: 17
+            cdc: 17,
+            hero: 1
         },
-        showModal: false,
-        tab: 1
+        tab: 1,
+        modalHealth: false,
+        modalName: false,
+        num:''
+        
     },
     computed: {
     },
     methods: {
-        generateRoom: function(){
-            this.room.shape = ['Square','Rectangle','Square','Rectangle','Cross','T-Shape','U-Shape'].sample();
-            this.room.width = Math.ceil(Math.random()*12)+3;
-            this.room.length = Math.ceil(Math.random()*12)+3;
-            this.room.addition = ['None','None','None','None','None','None','Rectangle','Square','Square','Rectangle','Cross','L-Shape','T-Shape','U-Shape'].sample();
-            this.room.filler = ['None','None','None','None','None','Square','Rectangle','Cross','L-Shape','T-Shape','U-Shape'].sample();
-            this.room.feature = ['None','None','None','None','None','None','None','Pillars','Boxes/Barrels','Pit','Statues','Foliage','Water','Rubble','None','Chasm','Spikes'].sample();
+        updateHealth: function(isDmg){
+            if(isDmg){
+                this.pc.hp = Math.max(this.pc.hp-this.num,0);
+            }else{
+                this.pc.hp = Math.min(this.pc.hp+this.num,this.pc.hpMax);
+            }
+            this.modalHealth=false;
+            this.num='';
         }
+    },
+    mounted() {
+        if(typeof localStorage.my_data !== 'undefined') this.pc = JSON.parse(localStorage.getItem('my_data'));;
+    },
+    watch: {
+        pc: { handler: function(val, oldVal) { localStorage.setItem('my_data', JSON.stringify(val)); }, deep: true }
     }
 });

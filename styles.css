@@ -30,7 +30,8 @@ nav{
         flex: 1;
         font-size: 18px;
         font-weight: bold;
-        padding-bottom: 16px;
+        margin: 0;
+        padding-bottom: 14px;
     }
     nav button:last-of-type{border-right:1px solid black;}
     nav button.active{ background: rgba(0,0,0,0.8); }
@@ -47,7 +48,6 @@ hr{
     display: flex;
 }
     .flex>*{flex: 1; margin: 0 2px;}
-    .flex>div>h2:first-of-type{ margin-top: 0; }
     .flex .flex>*{margin: 0;}
     .flex-2{flex: 2;}
     .flex-3{flex: 3;}
@@ -127,10 +127,29 @@ table.stats td:nth-child(2){
     background: rgba(0,0,0,0.7);
 }
 
+.modal td{
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: 15px;
+    padding: 3px;
+    vertical-align: middle;
+}
+.modal td:last-of-type{
+    flex: 2;
+}
+.modal td input,.modal td select{
+    font-size: 12px;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+}
+
 .single{
     background: rgba(0,0,0,0.5);
     border-radius: 4px;
-    font-size: 32px;
+    font-size: 42px;
     margin: 2px 2px 6px;
     padding: 7px 10px;
     position: relative;
@@ -213,11 +232,13 @@ details.char td{
 
 button{
     background: #000000aa;
-    border: none;
+    border: 1px solid #000000cc; border-top: none; border-bottom: 3px solid #000000cc;
     border-radius: 3px;
     color: rgb(255, 255, 255);
+    cursor: pointer;
     font-size: 18px;
     font-weight: bold;
+    margin-top: 10px;
     outline: 0;
     padding: 10px 25px;
 }
@@ -276,9 +297,10 @@ details details>*, details details>div{
 
 
 
-input{
-    padding: 5px;
+input,select{
+    padding: 2px 5px;
     border-radius: 4px;
+    width: 100%;
 }
 
 .fader{
@@ -287,7 +309,8 @@ input{
     z-index: 90;
 }
 .modal{
-    background: rgba(5, 0, 0, 0.95);
+    background: rgba(5, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     position: absolute; top: 20%; left: 0; right: 0;
     margin: 0 20px; padding: 20px;
     text-align: center;
