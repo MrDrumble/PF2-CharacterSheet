@@ -20,8 +20,7 @@
         <div v-show="tab==1">
             <div class="flex">
                 <div>
-                    <button v-if="pc.name == ''" @click="modalName=true">Create Character</button>
-                    <div v-else  @click="modalName=true">
+                    <div @click="modalName=true">
                         <h2 style="font-size: 18px">{{pc.name}}</h2>
                         <table class="simple">
                             <tr><td>{{pc.class}}</td><td>Lv. {{pc.level}}</td></tr>
@@ -32,15 +31,17 @@
                             <tr><td colspan="2">{{pc.languages}}</td></tr>
                         </table>
                     </div>
-                    <h2>Ability Scores</h2>
-                    <table class="stats">
-                        <tr><td>{{pc.str}}</td><td>STR</td><td>{{(pc.str-10)*0.5}}</td></tr>
-                        <tr><td>{{pc.dex}}</td><td>DEX</td><td>{{(pc.dex-10)*0.5}}</td></tr>
-                        <tr><td>{{pc.con}}</td><td>CON</td><td>{{(pc.con-10)*0.5}}</td></tr>
-                        <tr><td>{{pc.int}}</td><td>INT</td><td>{{(pc.int-10)*0.5}}</td></tr>
-                        <tr><td>{{pc.wis}}</td><td>WIS</td><td>{{(pc.wis-10)*0.5}}</td></tr>
-                        <tr><td>{{pc.cha}}</td><td>CHA</td><td>{{(pc.cha-10)*0.5}}</td></tr>
-                    </table>                    
+                    <div @click="modalAbility=true">
+                        <h2>Ability Scores</h2>
+                        <table class="stats">
+                            <tr><td>{{pc.str}}</td><td>STR</td><td>{{str}}</td></tr>
+                            <tr><td>{{pc.dex}}</td><td>DEX</td><td>{{dex}}</td></tr>
+                            <tr><td>{{pc.con}}</td><td>CON</td><td>{{con}}</td></tr>
+                            <tr><td>{{pc.int}}</td><td>INT</td><td>{{int}}</td></tr>
+                            <tr><td>{{pc.wis}}</td><td>WIS</td><td>{{wis}}</td></tr>
+                            <tr><td>{{pc.cha}}</td><td>CHA</td><td>{{cha}}</td></tr>
+                        </table>   
+                    </div>                 
 
                     <h2>Other</h2>
                     <table>
@@ -132,6 +133,21 @@
             
         </div>
 
+        <div class="fader" v-if="modalAbility" @click="modalAbility=false">
+            <div class="modal" @click.stop>
+                <label>Ability Scores</label>
+                <table>
+                    <tr><td>Strength:</td><td><input type="number" v-model="pc.str"></td></tr>
+                    <tr><td>Dexterity:</td><td><input type="number" v-model="pc.dex"></td></tr>
+                    <tr><td>Constitution:</td><td><input type="number" v-model="pc.con"></td></tr>
+                    <tr><td>Intelligence:</td><td><input type="number" v-model="pc.int"></td></tr>
+                    <tr><td>Wisdom:</td><td><input type="number" v-model="pc.wis"></td></tr>
+                    <tr><td>Charisma:</td><td><input type="number" v-model="pc.cha"></td></tr>
+                </table>
+                
+                <button @click="modalAbility=false">Close</button>
+            </div>
+        </div>
         <div class="fader" v-if="modalHealth" @click="modalHealth=false">
             <div class="modal" @click.stop>
                 <label>Enter Amount</label>

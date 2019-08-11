@@ -8,26 +8,26 @@ var app = new Vue({
     el:'#app',
     data: {
         pc:{ 
-            name: '', 
-            ancestry: '',
-            background: '',
-            class: '', 
-            heritage: '', 
-            size: '',
+            name: 'Name', 
+            ancestry: 'Ancestry',
+            background: 'Background',
+            class: 'Class', 
+            heritage: 'Heritage', 
+            size: 'Medium',
             alignment: '',
-            deity: '',
+            deity: 'Deity',
             languages: 'Common',
-            xp: 100,
+            xp: 0,
             level: 1, 
             hp: 18, hpMax: 18,
             dying: 0, dyingMax: 4,
 
-            str: 16, 
-            dex: 12, 
-            con: 12, 
-            int: 8, 
-            wis: 12, 
-            cha: 12, 
+            str: 10, 
+            dex: 10, 
+            con: 10, 
+            int: 10, 
+            wis: 10, 
+            cha: 10, 
             
             perception: 9,
             ac: 15, 
@@ -39,12 +39,19 @@ var app = new Vue({
             hero: 1
         },
         tab: 1,
+        modalAbility: false,
         modalHealth: false,
         modalName: false,
         num:''
         
     },
     computed: {
+        str: function(){ return Math.floor((this.pc.str-10)*0.5); },
+        dex: function(){ return Math.floor((this.pc.dex-10)*0.5); },
+        con: function(){ return Math.floor((this.pc.con-10)*0.5); },
+        int: function(){ return Math.floor((this.pc.int-10)*0.5); },
+        wis: function(){ return Math.floor((this.pc.wis-10)*0.5); },
+        cha: function(){ return Math.floor((this.pc.cha-10)*0.5); }
     },
     methods: {
         updateHealth: function(isDmg){

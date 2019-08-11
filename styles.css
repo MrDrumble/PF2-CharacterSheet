@@ -313,9 +313,10 @@ input,select{
     background: rgba(5, 0, 0, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.25);
     position: absolute; top: 20%; left: 0; right: 0;
-    margin: 0 20px; padding: 20px;
+    margin: 0 auto; padding: 20px;
     text-align: center;
     border-radius: 4px;
+    max-width: 700px;
     z-index: 100;
 }
     .modal label{ display: block; font-size: 24px; margin: 0 0 5px;}
