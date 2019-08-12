@@ -23,9 +23,9 @@
                     <div @click="modalName=true">
                         <h2 style="font-size: 18px">{{pc.name}}</h2>
                         <table class="simple">
-                            <tr><td >Level {{pc.level}}</td><td>{{pc.xp}} XP</td></tr>
-                            <tr><td colspan="2">{{pc.class}}</td></tr>
-                            <tr><td colspan="2">{{pc.background}} {{pc.ancestry}}</td></tr>
+                            <tr><td>Level {{pc.level}}</td><td>{{pc.xp}} XP</td></tr>
+                            <tr><td>{{pc.class}}</td><td>{{pc.background}}</td></tr>
+                            <tr><td colspan="2">{{pc.heritage}} {{pc.ancestry}}</td></tr>
                             <tr><td>{{pc.deity}}</td><td>{{pc.size}}</td></tr>
                             <tr><td colspan="2">{{pc.alignment}}</td></tr>
                             <tr><td colspan="2">{{pc.languages}}</td></tr>
@@ -91,9 +91,9 @@
 
         <div v-show="tab==2">
             <div class="flex">
-                <div>
+                <div @click="modalArmor=true">
                     <h2>Armor Class</h2>
-                    <div class="single">{{pc.ac}}</div>
+                    <div class="single">{{ac}}</div>
                 </div>
                 <div>
                     <h2>Hit Points</h2>
@@ -102,10 +102,6 @@
             </div>
 
             <div class="flex">
-                <div>                        
-                    <h2>Shield</h2>
-                    <div class="single">{{pc.cdc}}</div>
-                </div>
                 <div>
                     <h2>Saving Throws</h2>
                     <table>
@@ -114,9 +110,13 @@
                         <tr><td>Will</td><td>{{pc.will}}</td></tr>
                     </table>
                 </div>
+                <div>                        
+                    <h2>Shield</h2>
+                    <div class="single">{{pc.cdc}}</div>
+                </div>
             </div>
-            
-        </div>
+        </div><!-- tab2 -->
+
         <div v-show="tab==3">
             <div class="flex">
                 <div>
@@ -156,6 +156,19 @@
                 </table>
                 
                 <button @click="modalAbility=false">Close</button>
+            </div>
+        </div>
+        <div class="fader" v-if="modalArmor" @click="modalArmor=false">
+            <div class="modal" @click.stop>
+                <label>Armor Class</label>
+                <table>
+                    <tr><td>Unarmored:</td><td><select v-model="pc.unarmored"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Light Armor:</td><td><select v-model="pc.light"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Medium Armor:</td><td><select v-model="pc.medium"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Heavy Armor:</td><td><select v-model="pc.heavy"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                </table>
+                
+                <button @click="modalArmor=false">Close</button>
             </div>
         </div>
         <div class="fader" v-if="modalHealth" @click="modalHealth=false">
@@ -205,6 +218,18 @@
                 </table>
                 
                 <button @click="modalOther=false">Close</button>
+            </div>
+        </div>
+        <div class="fader" v-if="modalSaves" @click="modalSaves=false">
+            <div class="modal" @click.stop>
+                <label>Saving Throws</label>
+                <table>
+                    <tr><td>Fortitude:</td><td><select v-model="pc.fort"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Reflex:</td><td><select v-model="pc.reflex"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Will:</td><td><select v-model="pc.will"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                </table>
+                
+                <button @click="modalSaves=false">Close</button>
             </div>
         </div>
         <div class="fader" v-if="modalSenses" @click="modalSenses=false">

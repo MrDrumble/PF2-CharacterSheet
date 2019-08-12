@@ -48,10 +48,18 @@ var app = new Vue({
             survival: 0,
             thievery: 0,
 
-            ac: 15,
-            fort: 12, 
-            reflex: 10, 
-            will: 8, 
+            woreArmorType: 'none',
+            armorDexCap: 99,
+            armorItemBonus: 0,
+            
+            unarmored: 0,
+            light: 0,
+            medium: 0,
+            heavy: 0,
+
+            fort: 1, 
+            reflex: 1, 
+            will: 1, 
 
             focusPts: 1,
             heroPts: 1,
@@ -66,11 +74,13 @@ var app = new Vue({
 
             cdc: 17
         },
-        tab: 1,
+        tab: 2,
         modalAbility: false,
+        modalArmor: false,
         modalHealth: false,
         modalHero: false,
         modalName: false,
+        modalSaves: false,
         modalSenses: false,
         modalSkill: false,
         modalOther: false,
@@ -105,6 +115,25 @@ var app = new Vue({
         thievery: function(){ if(this.pc.thievery) return this.dex+this.pc.level+(this.pc.thievery*2); else return this.dex; },
         
         perception: function(){ if(this.pc.survival) return this.wis+this.pc.level+(this.pc.survival*2); else return this.wis; },
+
+        ac: function(){ 
+            var total = 10+Math.min(this.dex,this.pc.armorDexCap);
+            
+            switch (this.pc.woreArmorType) {
+                case 'light': if(this.pc.light) total+=this.pc.level+(this.pc.light*2); break;
+                case 'medium': if(this.pc.medium) total+=this.pc.level+(this.pc.medium*2); break;
+                case 'heavy': if(this.pc.heavy) total+=this.pc.level+(this.pc.heavy*2); break;
+                default: if(this.pc.unarmored) total+=this.pc.level+(this.pc.unarmored*2); break;
+            }
+
+            total+=this.pc.armorItemBonus; 
+            //+ other bonuses
+            return total;
+        },
+
+        fort: function(){ if(this.pc.fort) return this.con+this.pc.level+(this.pc.fort*2); else return this.con; },
+        reflex: function(){ if(this.pc.reflex) return this.dex+this.pc.level+(this.pc.reflex*2); else return this.dex; },
+        will: function(){ if(this.pc.will) return this.wis+this.pc.level+(this.pc.will*2); else return this.wis; }
     },
     methods: {
         updateHealth: function(isDmg){
