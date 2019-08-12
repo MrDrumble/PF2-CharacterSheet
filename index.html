@@ -23,11 +23,11 @@
                     <div @click="modalName=true">
                         <h2 style="font-size: 18px">{{pc.name}}</h2>
                         <table class="simple">
-                            <tr><td>{{pc.class}}</td><td>Lv. {{pc.level}}</td></tr>
-                            <tr><td>{{pc.ancestry}}</td><td>{{pc.xp}} XP</td></tr>
-                            <tr><td>{{pc.background}}</td><td>{{pc.deity}}</td></tr>
-                            <tr><td>{{pc.heritage}}</td><td>{{pc.alignment}}</td></tr>
-                            <tr><td colspan="2">{{pc.size}}</td></tr>
+                            <tr><td >Level {{pc.level}}</td><td>{{pc.xp}} XP</td></tr>
+                            <tr><td colspan="2">{{pc.class}}</td></tr>
+                            <tr><td colspan="2">{{pc.background}} {{pc.ancestry}}</td></tr>
+                            <tr><td>{{pc.deity}}</td><td>{{pc.size}}</td></tr>
+                            <tr><td colspan="2">{{pc.alignment}}</td></tr>
                             <tr><td colspan="2">{{pc.languages}}</td></tr>
                         </table>
                     </div>
