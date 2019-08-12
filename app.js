@@ -14,7 +14,7 @@ var app = new Vue({
             class: 'Class', 
             heritage: 'Heritage', 
             size: 'Medium',
-            alignment: '',
+            alignment: 'True Neutral',
             deity: 'Deity',
             languages: 'Common',
             xp: 0,
@@ -28,20 +28,52 @@ var app = new Vue({
             int: 10, 
             wis: 10, 
             cha: 10, 
-            
-            perception: 9,
-            ac: 15, 
+
+            acrobatics: 0,
+            arcana: 0,
+            athletics: 0,
+            crafting: 0,
+            deception: 0,
+            diplomacy: 0,
+            intimidation: 0,
+            lore1: 0, lore1Name: '',
+            lore2: 0, lore2Name: '',
+            medicine: 0,
+            nature: 0,
+            occultism: 0,
+            performance: 0,
+            religion: 0,
+            society: 0,
+            stealth: 0,
+            survival: 0,
+            thievery: 0,
+
+            ac: 15,
             fort: 12, 
             reflex: 10, 
             will: 8, 
-            spd: 25,
-            cdc: 17,
-            hero: 1
+
+            focusPts: 1,
+            heroPts: 1,
+
+            perception: 0,
+            vision: 'Normal',
+            spd: 0,
+            spdBurrow: 0,
+            spdClimb: 0,
+            spdFly: 0,
+            spdSwim: 0,
+
+            cdc: 17
         },
         tab: 1,
         modalAbility: false,
         modalHealth: false,
+        modalHero: false,
         modalName: false,
+        modalSenses: false,
+        modalSkill: false,
+        modalOther: false,
         num:''
         
     },
@@ -51,7 +83,28 @@ var app = new Vue({
         con: function(){ return Math.floor((this.pc.con-10)*0.5); },
         int: function(){ return Math.floor((this.pc.int-10)*0.5); },
         wis: function(){ return Math.floor((this.pc.wis-10)*0.5); },
-        cha: function(){ return Math.floor((this.pc.cha-10)*0.5); }
+        cha: function(){ return Math.floor((this.pc.cha-10)*0.5); },
+        
+        acrobatics: function(){ if(this.pc.acrobatics) return this.dex+this.pc.level+(this.pc.acrobatics*2); else return this.dex; },
+        arcana: function(){ if(this.pc.arcana) return this.int+this.pc.level+(this.pc.arcana*2); else return this.int; },
+        athletics: function(){ if(this.pc.athletics) return this.str+this.pc.level+(this.pc.athletics*2); else return this.str; },
+        crafting: function(){ if(this.pc.crafting) return this.int+this.pc.level+(this.pc.crafting*2); else return this.int; },
+        deception: function(){ if(this.pc.deception) return this.cha+this.pc.level+(this.pc.deception*2); else return this.cha; },
+        diplomacy: function(){ if(this.pc.diplomacy) return this.cha+this.pc.level+(this.pc.diplomacy*2); else return this.cha; },
+        intimidation: function(){ if(this.pc.intimidation) return this.cha+this.pc.level+(this.pc.intimidation*2); else return this.cha; },
+        lore1: function(){ if(this.pc.lore1) return this.int+this.pc.level+(this.pc.lore1*2); else return this.int; },
+        lore2: function(){ if(this.pc.lore2) return this.int+this.pc.level+(this.pc.lore2*2); else return this.int; },
+        medicine: function(){ if(this.pc.medicine) return this.wis+this.pc.level+(this.pc.medicine*2); else return this.wis; },
+        nature: function(){ if(this.pc.nature) return this.wis+this.pc.level+(this.pc.nature*2); else return this.wis; },
+        occultism: function(){ if(this.pc.occultism) return this.int+this.pc.level+(this.pc.occultism*2); else return this.int; },
+        performance: function(){ if(this.pc.performance) return this.cha+this.pc.level+(this.pc.performance*2); else return this.cha; },
+        religion: function(){ if(this.pc.religion) return this.wis+this.pc.level+(this.pc.religion*2); else return this.wis; },
+        society: function(){ if(this.pc.society) return this.int+this.pc.level+(this.pc.society*2); else return this.int; },
+        stealth: function(){ if(this.pc.stealth) return this.dex+this.pc.level+(this.pc.stealth*2); else return this.dex; },
+        survival: function(){ if(this.pc.survival) return this.wis+this.pc.level+(this.pc.survival*2); else return this.wis; },
+        thievery: function(){ if(this.pc.thievery) return this.dex+this.pc.level+(this.pc.thievery*2); else return this.dex; },
+        
+        perception: function(){ if(this.pc.survival) return this.wis+this.pc.level+(this.pc.survival*2); else return this.wis; },
     },
     methods: {
         updateHealth: function(isDmg){
@@ -62,6 +115,10 @@ var app = new Vue({
             }
             this.modalHealth=false;
             this.num='';
+        },
+        useHero: function(n){
+            this.pc.heroPts = Math.max(0,Math.min(this.pc.heroPts+n,3));
+            this.modalHero=false;
         }
     },
     mounted() {

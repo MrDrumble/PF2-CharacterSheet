@@ -43,35 +43,47 @@
                         </table>   
                     </div>                 
 
-                    <h2>Other</h2>
-                    <table>
-                        <tr><td>Hero Points</td><td>{{pc.hero}}</td></tr>
-                        <tr><td>Perception</td><td>{{pc.perception}}</td></tr>
-                        <tr><td>Speed</td><td>{{pc.spd}}</td></tr>
-                    </table>
+                    <div @click="modalSenses=true">
+                        <h2>Senses</h2>
+                        <table>
+                            <tr><td>Perception</td><td>{{pc.perception}}</td></tr>
+                            <tr><td>Speed</td><td>{{pc.spd}}</td></tr>
+                            <tr v-if="pc.spdBurrow"><td>Burrow Speed</td><td>{{pc.spdBurrow}}</td></tr>
+                            <tr v-if="pc.spdClimb"><td>Climb Speed</td><td>{{pc.spdClimb}}</td></tr>
+                            <tr v-if="pc.spdFly"><td>Fly Speed</td><td>{{pc.spdFly}}</td></tr>
+                            <tr v-if="pc.spdSwim"><td>Swim Speed</td><td>{{pc.spdSwim}}</td></tr>
+                            <tr><td>Vision</td><td>{{pc.vision}}</td></tr>
+                        </table>
+                    </div>
                 </div>
                 <div>
-                    <h2>Skills</h2>
-                    <table>
-                        <tr><td>Acrobatics</td><td>{{pc.ac}}</td></tr>
-                        <tr><td>Arcana</td><td>{{pc.fort}}</td></tr>
-                        <tr><td>Athletics</td><td>{{pc.reflex}}</td></tr>
-                        <tr><td>Crafting</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Deception</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Diplomacy</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Intimidation</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Lore</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Lore</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Medicine</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Nature</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Occultism</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Performance</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Religion</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Society</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Stealth</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Survival</td><td>{{pc.will}}</td></tr>
-                        <tr><td>Thievery</td><td>{{pc.will}}</td></tr>
-                    </table>
+                    <div @click="modalHero=true">
+                        <h2>Hero Points</h2>
+                        <div class="single">{{pc.heroPts}}<span>/ 3</span></div>
+                    </div>
+                    <div @click="modalSkill=true">
+                        <h2>Skills</h2>
+                        <table>
+                            <tr><td>Acrobatics</td><td>{{acrobatics}}</td></tr>
+                            <tr><td>Arcana</td><td>{{arcana}}</td></tr>
+                            <tr><td>Athletics</td><td>{{athletics}}</td></tr>
+                            <tr><td>Crafting</td><td>{{crafting}}</td></tr>
+                            <tr><td>Deception</td><td>{{deception}}</td></tr>
+                            <tr><td>Diplomacy</td><td>{{diplomacy}}</td></tr>
+                            <tr><td>Intimidation</td><td>{{intimidation}}</td></tr>
+                            <tr v-if="pc.lore1Name"><td>Lore ({{pc.lore1Name}})</td><td>{{lore1}}</td></tr>
+                            <tr v-if="pc.lore2Name"><td>Lore ({{pc.lore2Name}})</td><td>{{lore2}}</td></tr>
+                            <tr><td>Medicine</td><td>{{medicine}}</td></tr>
+                            <tr><td>Nature</td><td>{{nature}}</td></tr>
+                            <tr><td>Occultism</td><td>{{occultism}}</td></tr>
+                            <tr><td>Performance</td><td>{{performance}}</td></tr>
+                            <tr><td>Religion</td><td>{{religion}}</td></tr>
+                            <tr><td>Society</td><td>{{society}}</td></tr>
+                            <tr><td>Stealth</td><td>{{stealth}}</td></tr>
+                            <tr><td>Survival</td><td>{{survival}}</td></tr>
+                            <tr><td>Thievery</td><td>{{thievery}}</td></tr>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -129,9 +141,7 @@
                 </div>
             </div>    
         </div>
-        <div v-show="tab==4">
-            
-        </div>
+        <div v-show="tab==4"></div>
 
         <div class="fader" v-if="modalAbility" @click="modalAbility=false">
             <div class="modal" @click.stop>
@@ -156,6 +166,15 @@
                 <button @click="updateHealth(false)">Heal</button>
             </div>
         </div>
+        <div class="fader" v-if="modalHero" @click="modalHero=false">
+            <div class="modal" @click.stop>
+                <label>Hero Points: {{pc.heroPts}}</label>
+                <button @click="useHero(1)">Gain +1</button>
+                <button @click="useHero(-1)">Reroll (-1)</button>
+                <button @click="pc.heroPts=1;modalHero=false">New Session (=1)</button>
+                <button @click="pc.heroPts=0;modalHero=false">Cheat Death (-All)</button>
+            </div>
+        </div>
         <div class="fader" v-if="modalName" @click="modalName=false">
             <div class="modal" @click.stop>
                 <label>Character Overview</label>
@@ -165,8 +184,8 @@
                     <tr><td>Background:</td><td><input v-model="pc.background"></td></tr>
                     <tr><td>Class:</td><td><input v-model="pc.class"></td></tr>
                     <tr><td>Heritage:</td><td><input v-model="pc.heritage"></td></tr>
-                    <tr><td>Size:</td><td><select v-model="pc.size"><option>Small</option><option>Medium</option></select></td></tr>
-                    <tr><td>Alignment:</td><td><input v-model="pc.alignment"></td></tr>
+                    <tr><td>Size:</td><td><select v-model="pc.size"><option>Tiny</option><option>Small</option><option>Medium</option><option>Large</option></select></td></tr>
+                    <tr><td>Alignment:</td><td><select v-model="pc.alignment"><option>Lawful Good</option><option>Neutral Good</option><option>Chaotic Good</option><option>Lawful Neutral</option><option>True Neutral</option><option>Chaotic Neutral</option><option>Lawful Evil</option><option>Neutral Evil</option><option>Chaotic Evil</option></select></td></tr>
                     <tr><td>Deity:</td><td><input v-model="pc.deity"></td></tr>
                     <tr><td>Languages:</td><td><input v-model="pc.languages"></td></tr>
                     <tr><td>Level:</td><td><input v-model="pc.level"></td></tr>
@@ -174,6 +193,63 @@
                 </table>
                 
                 <button @click="modalName=false">Close</button>
+            </div>
+        </div>
+        <div class="fader" v-if="modalOther" @click="modalOther=false">
+            <div class="modal" @click.stop>
+                <label>Other</label>
+                <table>
+                    <tr><td>Hero Points:</td><td><select v-model="pc.heroPts"><option>1</option><option>2</option><option>3</option></select></td></tr>
+                    <tr><td>Perception:</td><td><select v-model="pc.perception"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Speed:</td><td><input v-model="pc.spd"></td></tr>
+                </table>
+                
+                <button @click="modalOther=false">Close</button>
+            </div>
+        </div>
+        <div class="fader" v-if="modalSenses" @click="modalSenses=false">
+            <div class="modal" @click.stop>
+                <label>Senses</label>
+                <table>
+                    <tr><td>Perception:</td><td><select v-model="pc.perception"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Speed:</td><td><input v-model="pc.spd"></td></tr>
+                    <tr><td>Burrow Speed:</td><td><input v-model="pc.spdBurrow"></td></tr>
+                    <tr><td>Climb Speed:</td><td><input v-model="pc.spdClimb"></td></tr>
+                    <tr><td>Fly Speed:</td><td><input v-model="pc.spdFly"></td></tr>
+                    <tr><td>Swim Speed:</td><td><input v-model="pc.spdSwim"></td></tr>
+                    <tr><td>Vision:</td><td><select v-model="pc.vision"><option>Normal</option><option>Low-Light</option><option>Darkvision</option></select></td></tr>
+                </table>
+                
+                <button @click="modalSenses=false">Close</button>
+            </div>
+        </div>
+        <div class="fader" v-if="modalSkill" @click="modalSkill=false">
+            <div class="modal" @click.stop>
+                <label>Skills</label>
+                <table>
+                    <tr><td>Acrobatics:</td><td><select v-model="pc.acrobatics"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Arcana:</td><td><select v-model="pc.arcana"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Athletics:</td><td><select v-model="pc.athletics"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Crafting:</td><td><select v-model="pc.crafting"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Deception:</td><td><select v-model="pc.deception"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Diplomacy:</td><td><select v-model="pc.diplomacy"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Intimidation:</td><td><select v-model="pc.intimidation"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Lore 1 Name:</td><td><input v-model="pc.lore1Name"></td></tr>
+                    <tr><td>Lore 1:</td><td><select v-model="pc.lore1"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Lore 2 Name:</td><td><input v-model="pc.lore2Name"></td></tr>
+                    <tr><td>Lore 2:</td><td><select v-model="pc.lore2"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Medicine:</td><td><select v-model="pc.medicine"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Nature:</td><td><select v-model="pc.nature"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Occultism:</td><td><select v-model="pc.occultism"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Performance:</td><td><select v-model="pc.performance"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Religion:</td><td><select v-model="pc.religion"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Society:</td><td><select v-model="pc.society"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Stealth:</td><td><select v-model="pc.stealth"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Survival:</td><td><select v-model="pc.survival"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                    <tr><td>Thievery:</td><td><select v-model="pc.thievery"><option value="0">Untrained</option><option value="1">Trained</option><option value="2">Expert</option><option value="3">Master</option><option value="4">Legendary</option></select></td></tr>
+                </table>
+                
+                <button @click="modalSkill=false">Close</button>
             </div>
         </div>
 
