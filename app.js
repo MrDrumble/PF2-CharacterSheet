@@ -19,7 +19,7 @@ var app = new Vue({
             languages: 'Common',
             xp: 0,
             level: 1, 
-            hp: 18, hpMax: 18,
+            hp: 1,
             dying: 0, dyingMax: 4,
 
             str: 10, 
@@ -74,7 +74,7 @@ var app = new Vue({
 
             cdc: 17
         },
-        tab: 2,
+        tab: 1,
         modalAbility: false,
         modalArmor: false,
         modalHealth: false,
@@ -94,6 +94,27 @@ var app = new Vue({
         int: function(){ return Math.floor((this.pc.int-10)*0.5); },
         wis: function(){ return Math.floor((this.pc.wis-10)*0.5); },
         cha: function(){ return Math.floor((this.pc.cha-10)*0.5); },
+
+        hpMax: function(){ 
+            var total = 0;
+            
+            switch (this.pc.class) {
+                case 'Alchemist':   total = (8+this.con)*this.pc.level; break;
+                case 'Barbarian':   total = (12+this.con)*this.pc.level; break;
+                case 'Bard':        total = (8+this.con)*this.pc.level; break;
+                case 'Champion':    total = (10+this.con)*this.pc.level; break;
+                case 'Cleric':      total = (8+this.con)*this.pc.level; break;
+                case 'Druid':       total = (8+this.con)*this.pc.level; break;
+                case 'Fighter':     total = (10+this.con)*this.pc.level; break;
+                case 'Monk':        total = (10+this.con)*this.pc.level; break;
+                case 'Ranger':      total = (10+this.con)*this.pc.level; break;
+                case 'Rogue':       total = (8+this.con)*this.pc.level; break;
+                case 'Sorcerer':    total = (6+this.con)*this.pc.level; break;
+                case 'Wizard':      total = (6+this.con)*this.pc.level; break;
+            }
+
+            return total;
+        },
         
         acrobatics: function(){ if(this.pc.acrobatics) return this.dex+this.pc.level+(this.pc.acrobatics*2); else return this.dex; },
         arcana: function(){ if(this.pc.arcana) return this.int+this.pc.level+(this.pc.arcana*2); else return this.int; },
