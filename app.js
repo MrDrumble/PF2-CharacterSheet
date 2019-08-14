@@ -13,7 +13,6 @@ var app = new Vue({
             background: 'Background',
             class: 'Class', 
             heritage: 'Heritage', 
-            size: 'Medium',
             alignment: 'True Neutral',
             deity: 'Deity',
             languages: 'Common',
@@ -66,11 +65,13 @@ var app = new Vue({
 
             perception: 0,
             vision: 'Normal',
-            spd: 0,
+            
             spdBurrow: 0,
             spdClimb: 0,
             spdFly: 0,
             spdSwim: 0,
+
+            shield: { type:'', ac:0, hardness:0, hp:0, hpMax:0 },
 
             cdc: 17
         },
@@ -114,6 +115,23 @@ var app = new Vue({
             }
 
             return total;
+        },
+        size: function(){ 
+            switch (this.pc.ancestry) {
+                case 'Gnome': case 'Goblin': case 'Halfling':
+                    return 'Small'; break;
+                default: return 'Medium'; break;
+            }
+        },
+        spd: function(){ 
+            switch (this.pc.ancestry) {
+                case 'Dwarf': return 20; break;
+                case 'Elf': return 20; break;
+                case 'Gnome': return 20; break;
+                case 'Goblin': return 20; break;
+                case 'Halfling': return 20; break;
+                case 'Halfling': return 20; break;
+            }
         },
         
         acrobatics: function(){ if(this.pc.acrobatics) return this.dex+this.pc.level+(this.pc.acrobatics*2); else return this.dex; },
