@@ -4,6 +4,17 @@ Vue.directive('focus', {
     }
 })
 
+Vue.component('teml-bar', {
+    props: ['prof'],
+    template: 
+            `<div class="prof">
+                <span v-bind:class="{ on: (prof >= 1) }">T</span>
+                <span v-bind:class="{ on: (prof >= 1) }">E</span>
+                <span v-bind:class="{ on: (prof >= 1) }">M</span>
+                <span v-bind:class="{ on: (prof >= 1) }">L</span>
+            </div>`
+})
+
 var app = new Vue({
     el:'#app',
     data: {
@@ -60,6 +71,8 @@ var app = new Vue({
             reflex: 1, 
             will: 1, 
 
+            resistances: '',
+
             focusPts: 1,
             heroPts: 1,
 
@@ -75,14 +88,16 @@ var app = new Vue({
 
             cdc: 17
         },
-        tab: 1,
+        tab: 2,
         modalAbility: false,
         modalArmor: false,
         modalHealth: false,
         modalHero: false,
         modalName: false,
+        modalResist: false,
         modalSaves: false,
         modalSenses: false,
+        modalShield: false,
         modalSkill: false,
         modalOther: false,
         num:''
@@ -126,11 +141,11 @@ var app = new Vue({
         spd: function(){ 
             switch (this.pc.ancestry) {
                 case 'Dwarf': return 20; break;
-                case 'Elf': return 20; break;
-                case 'Gnome': return 20; break;
-                case 'Goblin': return 20; break;
-                case 'Halfling': return 20; break;
-                case 'Halfling': return 20; break;
+                case 'Elf': return 30; break;
+                case 'Gnome': return 25; break;
+                case 'Goblin': return 25; break;
+                case 'Halfling': return 25; break;
+                case 'Human': return 25; break;
             }
         },
         

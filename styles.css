@@ -67,11 +67,11 @@ h1{
         float: right;
     }
 h2{
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.8);
     border-radius: 4px;
     font-size: 14px;
     font-variant: small-caps;
-    margin: 0 2px;
+    margin: 10px 2px 0;
     padding: 3px 5px;
     text-align: center;
 }
@@ -85,7 +85,7 @@ table{
         margin: 0;
     }
     td{
-        background: rgba(0,0,0,0.35);
+        background: rgba(0,0,0,0.5);
         flex: 1;
         font-size: 13px;
         font-weight: bold;
@@ -96,10 +96,10 @@ table{
         vertical-align: middle;
     }
     td:first-of-type{
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.66);
         border-left: none;
         border-radius: 4px 0 0 4px;
-        flex: 1.5;
+        flex: 3;
         text-align: right;
     }
     td:last-of-type{
@@ -107,7 +107,7 @@ table{
     }
 
 table.simple td{
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.5);
     border-radius: 4px;
     flex: 1;
     margin-right: 2px;
@@ -122,11 +122,21 @@ table.stats td{
     text-align: center;
 }
 table.stats td:nth-child(1){
-    background: rgba(0,0,0,0.35);
-}
-table.stats td:nth-child(2){
     background: rgba(0,0,0,0.5);
 }
+table.stats td:nth-child(2){
+    background: rgba(0,0,0,0.7);
+}
+
+.prof{
+    display: flex;
+    flex-direction: column;
+    float: left;
+}
+    .prof span{
+        display: block;
+        width: 5px; height: 5px;
+    }
 
 .modal td{
     background: transparent;
@@ -148,7 +158,7 @@ table.stats td:nth-child(2){
 }
 
 .single{
-    background: rgba(0,0,0,0.25);
+    background: rgba(0,0,0,0.5);
     border-radius: 4px;
     font-size: 36px;
     margin: 2px 2px 6px;
@@ -161,13 +171,22 @@ table.stats td:nth-child(2){
         opacity: 0.75;
         position: absolute; right: 10px; bottom: 7px;
     }
+.single.small{
+    font-size: 13px;
+}
+
 
 .smaller{
     font-size: 12px;
     line-height: 20px;
 }
 
-
+textarea{
+    border-radius: 4px;
+    display: block;
+    padding: 4px;
+    width: 100%; height: 20%;
+}
 
 summary{
     background: rgba(0,0,0,0.7);
