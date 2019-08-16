@@ -8,10 +8,10 @@ Vue.component('teml-bar', {
     props: ['prof'],
     template: 
             `<div class="prof">
-                <span v-bind:class="{ on: (prof >= 1) }">T</span>
-                <span v-bind:class="{ on: (prof >= 1) }">E</span>
-                <span v-bind:class="{ on: (prof >= 1) }">M</span>
-                <span v-bind:class="{ on: (prof >= 1) }">L</span>
+                <span v-bind:class="{ on: (prof >= 4) }"></span>
+                <span v-bind:class="{ on: (prof >= 3) }"></span>
+                <span v-bind:class="{ on: (prof >= 2) }"></span>
+                <span v-bind:class="{ on: (prof >= 1) }"></span>
             </div>`
 })
 
@@ -84,13 +84,14 @@ var app = new Vue({
             spdFly: 0,
             spdSwim: 0,
 
-            shield: { type:'', ac:0, hardness:0, hp:0, hpMax:0 },
+            shield: { type:'', ac:0, hardness:0, hp:0, hpMax:0, raised:false },
 
             cdc: 17
         },
         tab: 2,
         modalAbility: false,
         modalArmor: false,
+        modalBlock: false,
         modalHealth: false,
         modalHero: false,
         modalName: false,
@@ -168,7 +169,7 @@ var app = new Vue({
         survival: function(){ if(this.pc.survival) return this.wis+this.pc.level+(this.pc.survival*2); else return this.wis; },
         thievery: function(){ if(this.pc.thievery) return this.dex+this.pc.level+(this.pc.thievery*2); else return this.dex; },
         
-        perception: function(){ if(this.pc.survival) return this.wis+this.pc.level+(this.pc.survival*2); else return this.wis; },
+        perception: function(){ if(this.pc.perception) return this.wis+this.pc.level+(this.pc.perception*2); else return this.wis; },
 
         ac: function(){ 
             var total = 10+Math.min(this.dex,this.pc.armorDexCap);
@@ -179,7 +180,7 @@ var app = new Vue({
                 case 'heavy': if(this.pc.heavy) total+=this.pc.level+(this.pc.heavy*2); break;
                 default: if(this.pc.unarmored) total+=this.pc.level+(this.pc.unarmored*2); break;
             }
-
+            if(this.pc.shield.raised)total+=Number(this.pc.shield.ac);
             total+=this.pc.armorItemBonus; 
             //+ other bonuses
             return total;
@@ -187,14 +188,33 @@ var app = new Vue({
 
         fort: function(){ if(this.pc.fort) return this.con+this.pc.level+(this.pc.fort*2); else return this.con; },
         reflex: function(){ if(this.pc.reflex) return this.dex+this.pc.level+(this.pc.reflex*2); else return this.dex; },
-        will: function(){ if(this.pc.will) return this.wis+this.pc.level+(this.pc.will*2); else return this.wis; }
+        will: function(){ if(this.pc.will) return this.wis+this.pc.level+(this.pc.will*2); else return this.wis; },
+
+        shieldUsable: function(){
+            if(this.pc.shield.type !== '' && this.pc.shield.hp > this.pc.shield.hpMax*0.5)
+                return true;
+            else {
+                this.pc.shield.raised=false;
+                return false;
+            }
+        }
     },
     methods: {
+        shieldBlock: function(){
+            this.pc.hp = Math.max(this.pc.hp-(this.num-this.pc.shield.hardness),0);
+            this.pc.shield.hp = Math.max(this.pc.shield.hp-(this.num-this.pc.shield.hardness),0);
+
+            if(this.pc.shield.hp <= this.pc.shield.hpMax*0.5)
+                this.pc.shield.raised = false;
+
+            this.modalBlock=false;
+            this.num='';
+        },
         updateHealth: function(isDmg){
             if(isDmg){
                 this.pc.hp = Math.max(this.pc.hp-this.num,0);
             }else{
-                this.pc.hp = Math.min(this.pc.hp+this.num,this.pc.hpMax);
+                this.pc.hp = Math.min(this.pc.hp+this.num,this.hpMax);
             }
             this.modalHealth=false;
             this.num='';

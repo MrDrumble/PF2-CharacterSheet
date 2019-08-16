@@ -1,6 +1,7 @@
 *{ box-sizing: border-box; margin: 0; padding: 0; }
 html{
-    background: radial-gradient(circle at 50% 85%, #84aa9b, #34495e 90%);
+    /*background: radial-gradient(circle at 50% 85%, #84aa9b, #34495e 90%);*/
+    background: radial-gradient(circle at 50% 30%, hsl(0, 0%, 40%), hsl(0, 0%, 20%) 65%);
     background-attachment: fixed;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     min-height: 100%;
@@ -134,9 +135,14 @@ table.stats td:nth-child(2){
     float: left;
 }
     .prof span{
+        background: rgba(0,0,0,0.5);
         display: block;
-        width: 5px; height: 5px;
+        margin-bottom: 2px;
+        width: 7px; height: 2px;
     }
+        .prof span.on{
+            background: white; box-shadow: 0 0 2px #fff, 0 0 4px #22c0ff;
+        }
 
 .modal td{
     background: transparent;
@@ -255,22 +261,26 @@ li{
 
 button{
     background: #000000aa;
-    border: 1px solid #000000cc; border-top: none; border-bottom: 3px solid #000000cc;
+    border: none; border-bottom: 3px solid #000000cc;
     border-radius: 3px;
     color: rgb(255, 255, 255);
     cursor: pointer;
-    font-size: 18px;
+    display: inline-block;
+    font-size: 14px;
     font-weight: bold;
-    margin-top: 10px;
+    margin: 5px 2px;
     outline: 0;
     padding: 10px 25px;
+    width: 98%;
 }
     button.on{
-        box-shadow: inset 0 0 5px #9cffd7,inset 0 0 40px #9cffd7;
-        text-shadow: 0 0 5px #9cffd7;
+        box-shadow: 0 0 5px #22c0ff, inset 0 0 40px #22c0ff;
+        text-shadow: 0 0 5px #22c0ff;
+        border-bottom-width: 0px;
+        margin: 7px 2px 6px;
     }
     .on{
-        text-shadow: 0 0 5px #9cffd7;
+        text-shadow: 0 0 5px #22c0ff;
     }
 
 
@@ -332,7 +342,7 @@ input,select{
     z-index: 90;
 }
 .modal{
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(20, 20, 20, 1);
     border: 1px solid rgba(255, 255, 255, 0.25);
     position: absolute; top: 10%; left: 0; right: 0;
     margin: 0 auto; padding: 20px;
@@ -343,7 +353,7 @@ input,select{
 }
     .modal label{ display: block; font-size: 24px; margin: 0 0 5px;}
     .modal input{ display: block; margin: 0 auto 10px; width: 25%; text-align: center; font-size: 22px; }
-    .modal button{ border-radius: 4px; padding: 5px; display: inline-block; width: 33%; margin: 15px; border: 1px solid #ffffff99; }
+    .modal button{ border-radius: 4px; font-size: 12px; padding: 5px; display: inline-block; width: 130px; margin: 10px 5px; border: 1px solid #ffffff99; }
 
 
 /*#region Spellbook*/

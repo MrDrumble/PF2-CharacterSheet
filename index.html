@@ -47,7 +47,7 @@
                     <div @click="modalSenses=true">
                         <h2>Senses</h2>
                         <table>
-                            <tr><td>Perception</td><td>{{pc.perception}}</td></tr>
+                            <tr><td>Perception</td><td><teml-bar :prof="pc.perception"></teml-bar>{{perception}}</td></tr>
                             <tr><td>Speed</td><td>{{spd}}</td></tr>
                             <tr v-if="pc.spdBurrow"><td>Burrow Speed</td><td>{{pc.spdBurrow}}</td></tr>
                             <tr v-if="pc.spdClimb"><td>Climb Speed</td><td>{{pc.spdClimb}}</td></tr>
@@ -61,24 +61,24 @@
                     <div @click="modalSkill=true">
                         <h2>Skills</h2>
                         <table>
-                            <tr><td>Acrobatics</td><td><teml-bar :prof="acrobatics"></teml-bar>{{acrobatics}}</td></tr>
-                            <tr><td>Arcana</td><td>{{arcana}}</td></tr>
-                            <tr><td>Athletics</td><td>{{athletics}}</td></tr>
-                            <tr><td>Crafting</td><td>{{crafting}}</td></tr>
-                            <tr><td>Deception</td><td>{{deception}}</td></tr>
-                            <tr><td>Diplomacy</td><td>{{diplomacy}}</td></tr>
-                            <tr><td>Intimidation</td><td>{{intimidation}}</td></tr>
-                            <tr v-if="pc.lore1Name"><td>Lore ({{pc.lore1Name}})</td><td>{{lore1}}</td></tr>
-                            <tr v-if="pc.lore2Name"><td>Lore ({{pc.lore2Name}})</td><td>{{lore2}}</td></tr>
-                            <tr><td>Medicine</td><td>{{medicine}}</td></tr>
-                            <tr><td>Nature</td><td>{{nature}}</td></tr>
-                            <tr><td>Occultism</td><td>{{occultism}}</td></tr>
-                            <tr><td>Performance</td><td>{{performance}}</td></tr>
-                            <tr><td>Religion</td><td>{{religion}}</td></tr>
-                            <tr><td>Society</td><td>{{society}}</td></tr>
-                            <tr><td>Stealth</td><td>{{stealth}}</td></tr>
-                            <tr><td>Survival</td><td>{{survival}}</td></tr>
-                            <tr><td>Thievery</td><td>{{thievery}}</td></tr>
+                            <tr><td>Acrobatics</td><td><teml-bar :prof="pc.acrobatics"></teml-bar>{{acrobatics}}</td></tr>
+                            <tr><td>Arcana</td><td><teml-bar :prof="pc.arcana"></teml-bar>{{arcana}}</td></tr>
+                            <tr><td>Athletics</td><td><teml-bar :prof="pc.athletics"></teml-bar>{{athletics}}</td></tr>
+                            <tr><td>Crafting</td><td><teml-bar :prof="pc.crafting"></teml-bar>{{crafting}}</td></tr>
+                            <tr><td>Deception</td><td><teml-bar :prof="pc.deception"></teml-bar>{{deception}}</td></tr>
+                            <tr><td>Diplomacy</td><td><teml-bar :prof="pc.diplomacy"></teml-bar>{{diplomacy}}</td></tr>
+                            <tr><td>Intimidation</td><td><teml-bar :prof="pc.intimidation"></teml-bar>{{intimidation}}</td></tr>
+                            <tr v-if="pc.lore1Name"><td>Lore ({{pc.lore1Name}})</td><td><teml-bar :prof="pc.lore1"></teml-bar>{{lore1}}</td></tr>
+                            <tr v-if="pc.lore2Name"><td>Lore ({{pc.lore2Name}})</td><td><teml-bar :prof="pc.lore2"></teml-bar>{{lore2}}</td></tr>
+                            <tr><td>Medicine</td><td><teml-bar :prof="pc.medicine"></teml-bar>{{medicine}}</td></tr>
+                            <tr><td>Nature</td><td><teml-bar :prof="pc.nature"></teml-bar>{{nature}}</td></tr>
+                            <tr><td>Occultism</td><td><teml-bar :prof="pc.occultism"></teml-bar>{{occultism}}</td></tr>
+                            <tr><td>Performance</td><td><teml-bar :prof="pc.performance"></teml-bar>{{performance}}</td></tr>
+                            <tr><td>Religion</td><td><teml-bar :prof="pc.religion"></teml-bar>{{religion}}</td></tr>
+                            <tr><td>Society</td><td><teml-bar :prof="pc.society"></teml-bar>{{society}}</td></tr>
+                            <tr><td>Stealth</td><td><teml-bar :prof="pc.stealth"></teml-bar>{{stealth}}</td></tr>
+                            <tr><td>Survival</td><td><teml-bar :prof="pc.survival"></teml-bar>{{survival}}</td></tr>
+                            <tr><td>Thievery</td><td><teml-bar :prof="pc.thievery"></teml-bar>{{thievery}}</td></tr>
                         </table>
                     </div>
                 </div>
@@ -88,28 +88,32 @@
 
         <div v-show="tab==2">
             <div class="flex">
-                <div @click="modalHero=true">
-                    <h2>Hero Points</h2>
-                    <div class="single">{{pc.heroPts}}<span>/ 3</span></div>
-                </div>
                 <div @click="modalArmor=true">
-                    <h2>Armor Class</h2>
-                    <div class="single">{{ac}}</div>
+                    <h2>Armor Class</h2> 
+                    <div class="single" :class="{on:pc.shield.raised}">{{ac}}<span v-if="pc.shield.raised">🛡️</span></div>
                 </div>
                 <div>
                     <h2>Hit Points</h2>
-                    <div class="single" @click="modalHealth=true">{{pc.hp}}<span>/ {{pc.hpMax}}</span></div>
+                    <div class="single" @click="modalHealth=true">{{pc.hp}}<span>/{{hpMax}}</span></div>
+                </div>
+                <div @click="modalHero=true">
+                    <h2>Hero Points</h2>
+                    <div class="single">{{pc.heroPts}}<span>/3</span></div>
                 </div>
             </div>
 
             <div class="flex">
                 <div>
+                    <div @click="modalResist=true">                        
+                        <h2><span v-if="pc.resistances == ''">No </span>Resistances</h2>
+                        <div v-if="pc.resistances !== ''" class="single small">{{pc.resistances}}</div>
+                    </div>
                     <div @click="modalSaves=true">
                         <h2>Saving Throws</h2>
                         <table>
-                            <tr><td>Fortitude</td><td>{{fort}}</td></tr>
-                            <tr><td>Reflex</td><td>{{reflex}}</td></tr>
-                            <tr><td>Will</td><td>{{will}}</td></tr>
+                            <tr><td>Fortitude</td><td><teml-bar :prof="pc.fort"></teml-bar>{{fort}}</td></tr>
+                            <tr><td>Reflex</td><td><teml-bar :prof="pc.reflex"></teml-bar>{{reflex}}</td></tr>
+                            <tr><td>Will</td><td><teml-bar :prof="pc.will"></teml-bar>{{will}}</td></tr>
                         </table>
                     </div>
                     <div @click="modalShield=true">                        
@@ -122,12 +126,15 @@
                             <tr><td>BT</td><td>{{pc.shield.hpMax*0.5}}</td></tr>
                         </table>
                     </div>
-                    <div @click="modalResist=true">                        
-                        <h2><span v-if="pc.resistances == ''">No </span>Resistances</h2>
-                        <div v-if="pc.resistances !== ''" class="single small">{{pc.resistances}}</div>
-                    </div>
+                    <button v-if="shieldUsable" @click="pc.shield.raised=!pc.shield.raised;" :class="{on:pc.shield.raised}">&#9670; Raise Shield</button>
+                    <button v-if="shieldUsable && pc.shield.raised" @click="modalBlock=true">&#8617; Shield Block</button>
                 </div>
-                <div></div>
+                <div>
+                    <h2>Misc Reference</h2>
+                    <table>
+                        <tr><td>Class DC</td><td><teml-bar :prof="pc.acrobatics"></teml-bar>{{pc.cdc}}</td></tr>
+                    </table>
+                </div>
             </div>
         </div><!-- tab2 -->
 
@@ -185,20 +192,37 @@
                 <button @click="modalArmor=false">Close</button>
             </div>
         </div>
+        <div class="fader" v-if="modalBlock" @click="modalBlock=false">
+            <div class="modal" @click.stop>
+                <label>Shield Block</label>
+                <table class="">
+                    <tr><td>Enter Damage:</td><td><input type="number" v-focus v-model.number="num"></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td>Block</td><td>w/o Block</td></tr>
+                    <tr><td>You:</td><td>{{pc.hp-Math.max(Number(num)-pc.shield.hardness,0)}}/{{hpMax}} HP</td><td>{{Math.max(pc.hp-Number(num),0)}}/{{hpMax}} HP</td></tr>
+                    <tr><td>Shield:</td><td>{{pc.shield.hp-Math.max(Number(num)-pc.shield.hardness,0)}}/{{pc.shield.hpMax}} HP</td><td>{{pc.shield.hp}}/{{pc.shield.hpMax}} HP</td></tr>
+                </table>
+                
+                <button @click="shieldBlock">Confirm Block</button>
+                <button @click="modalBlock=false">Cancel</button>
+            </div>
+        </div>
         <div class="fader" v-if="modalHealth" @click="modalHealth=false">
             <div class="modal" @click.stop>
                 <label>Enter Amount</label>
-                <input type="number"  v-model.number="num">
+                <input type="number" v-focus v-model.number="num">
                 <button @click="updateHealth(true)">Damage</button>
                 <button @click="updateHealth(false)">Heal</button>
+                <button @click="updateHealth(false)">Long Rest (+{{Math.max(pc.level*con,1)}})</button>
+                <button @click="num=hpMax;updateHealth(false)">Full Heal</button>
             </div>
         </div>
         <div class="fader" v-if="modalHero" @click="modalHero=false">
             <div class="modal" @click.stop>
                 <label>Hero Points: {{pc.heroPts}}</label>
+                <button @click="pc.heroPts=1;modalHero=false">New Session (=1)</button>
                 <button @click="useHero(1)">Gain +1</button>
                 <button @click="useHero(-1)">Reroll (-1)</button>
-                <button @click="pc.heroPts=1;modalHero=false">New Session (=1)</button>
                 <button @click="pc.heroPts=0;modalHero=false">Cheat Death (-All)</button>
             </div>
         </div>
@@ -235,7 +259,7 @@
                     <tr><td>Deity:</td><td><input v-model="pc.deity"></td></tr>
                     <tr><td>Languages:</td><td><input v-model="pc.languages"></td></tr>
                     <tr><td>Level:</td><td><input v-model="pc.level"></td></tr>
-                    <tr><td>XP:</td><td><input v-model="pc.xp"></td></tr>
+                    <tr><td>XP:</td><td><input v-focus v-model="pc.xp"></td></tr>
                 </table>
                 
                 <button @click="modalName=false">Close</button>
@@ -256,7 +280,7 @@
         <div class="fader" v-if="modalResist" @click="modalResist=false">
             <div class="modal" @click.stop>
                 <label>Resistances</label>
-                <textarea v-model="pc.resistances"></textarea>
+                <textarea v-focus v-model="pc.resistances"></textarea>
                 <button @click="modalResist=false">Close</button>
             </div>
         </div>
@@ -290,12 +314,13 @@
         </div>
         <div class="fader" v-if="modalShield" @click="modalShield=false">
             <div class="modal" @click.stop>
-                <label>Senses</label>
+                <label>Shield</label>
                 <table>
                     <tr><td>Type:</td><td><input v-model="pc.shield.type"></td></tr>
-                    <tr><td>AC:</td><td><input v-model="pc.shield.ac"></td></tr>
-                    <tr><td>Hardness:</td><td><input v-model="pc.shield.hardness"></td></tr>
-                    <tr><td>Max HP:</td><td><input v-model="pc.shield.hpMax"></td></tr>
+                    <tr><td>AC:</td><td><input type="number" v-model.number="pc.shield.ac"></td></tr>
+                    <tr><td>Hardness:</td><td><input type="number" v-model.number="pc.shield.hardness"></td></tr>
+                    <tr><td>HP:</td><td><input v-focus type="number" v-model.number="pc.shield.hp"></td></tr>
+                    <tr><td>Max HP:</td><td><input type="number" v-model.number="pc.shield.hpMax"></td></tr>
                 </table>
                 
                 <button @click="modalShield=false">Close</button>
